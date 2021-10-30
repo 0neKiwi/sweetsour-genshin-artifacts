@@ -1,0 +1,40 @@
+<%- include('ejs_updates/update-header') %>
+<%- include('ejs_updates/update-menu') %>
+	<div class = "container">
+		<br>
+		<div class = "row">
+			<div class = "col-sm-4 column">
+				<div class = "jumbotron jumbotron-custom">
+					<h1 class = "h1-custom">Artifacts</h1>
+					<p class = "lead">Find how many lines there are in your artifacts. </p>
+				</div>
+				<p class = "p-custom" id = "num-artis-selected">No artifacts added yet.</p>
+				<hr>
+				<h2 class = "h2-custom" id = "desired-substats"></h2>
+				<hr>
+				<p class = "p-custom" id = "stats"></p>
+			</div>
+			<div class = "col-sm-8 column">
+				<!--FORM 1-->
+				<%- include('ejs_updates/update-form1') %>
+			</div>
+		</div>
+		<hr>
+		<div class = "row">
+			<div class = "col-sm-8 column">
+				<!--FORM 2-->
+				<%- include('ejs_updates/update-form2') %>
+			</div>
+			<div class = "col-sm-4 column">
+				<div class = "jumbotron jumbotron-custom">
+					<h1 class = "h1-custom">Add An Artifact</h1>
+					<p class = "lead">Add your artifacts to the database.</p>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<p class = "p-custom">Copyright (C)</p>
+	</div>
+
+<%- include('ejs_updates/update-footer') %>

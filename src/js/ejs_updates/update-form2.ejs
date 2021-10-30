@@ -1,0 +1,158 @@
+<form action= "/home/add_artifact" method = "post" autocomplete="off">
+    <div class = "form-group-custom row">
+        <select class = "select-custom" name = "select_set_add" id = "select-set-add">
+            <option value = "null">ARTIFACT SET</option>
+            <% if (artifact_sets) {
+                var dropdown = '';
+                artifact_sets.forEach(function(item){
+                    dropdown += '<option value = "'
+                    + item.set_id
+                    + '">' 
+                    + item.set_name
+                    + '</option>'
+                });
+            }
+            else{
+                dropdown = '<option> value = "">Invalid Option</option>'%>
+            <% } %>
+            <%- dropdown %>
+        </select>
+    </div>
+    <div class = "form-group-custom row">
+        <div class = "col-sm-5">
+            <select class = "select-custom select-custom2" name = "select_piece_add" id = "select-piece-add">
+                <option value = "null">SET PIECE</option>
+                <% if (set_pieces) {
+                    var dropdown = '';
+                    set_pieces.forEach(function(item){
+                        dropdown += '<option value = "'
+                        + item.piece_name
+                        + '">' 
+                        + item.piece_name
+                        + '</option>'
+                    });
+                }
+                else{
+                    dropdown = '<option> value = "">Invalid Option</option>'%>
+                <% } %>
+                <%- dropdown %>
+            </select>
+        </div>
+        <div class = "col-sm-7">
+            <select class = "select-custom" name = "mainstat_add" id = "select-mainstat-add">
+                <option value = "null">MAIN STAT</option>
+                <% if (possible_stats) {
+                    var dropdown = '';
+                    possible_stats.forEach(function(item){
+                        dropdown += '<option value = "'
+                        + item.stat_name
+                        + '">' 
+                        + item.stat_name
+                        + '</option>'
+                    });
+                }
+                else{
+                    dropdown = '<option> value = "">Invalid Option</option>'%>
+                <% } %>
+                <%- dropdown %>
+            </select>
+        </div>
+    </div>
+    <div class = "form-group-custom row">
+        <div class = "col-sm-4">
+            <select class = "select-custom select-custom2 select-substat-add" name = "substat1_type" id = "substat1-type">
+                <option value = "null">SUBSTAT 1</option>
+                <% if (possible_stats) {
+                    var dropdown = '';
+                    possible_stats.forEach(function(item){
+                        dropdown += '<option value = "'
+                        + item.stat_name
+                        + '">' 
+                        + item.stat_name
+                        + '</option>'
+                    });
+                }
+                else{
+                    dropdown = '<option> value = "">Invalid Option</option>'%>
+                <% } %>
+                <%- dropdown %>
+            </select>
+        </div>
+        <div class = "col-sm-8">
+            <input type = "number" step = "0.1" class = "input-custom input-substat-add" name = "substat1_value" id = "substat1-value"  placeholder = "Enter Substat 1 value">
+        </div>
+    </div>
+    <div class = "form-group-custom row">
+        <div class = "col-sm-4">
+            <select class = "select-custom select-custom2 select-substat-add" name = "substat2_type" id = "substat2-type">
+                <option value = "null">SUBSTAT 2</option>
+                <% if (possible_stats) {
+                    var dropdown = '';
+                    possible_stats.forEach(function(item){
+                        dropdown += '<option value = "'
+                        + item.stat_name
+                        + '">' 
+                        + item.stat_name
+                        + '</option>'
+                    });
+                }
+                else{
+                    dropdown = '<option> value = "">Invalid Option</option>'%>
+                <% } %>
+                <%- dropdown %>
+            </select>
+        </div>
+        <div class = "col-sm-8">
+            <input type = "number" step = "0.1" class = "input-custom input-substat-add" name = "substat2_value" id = "substat2-value" placeholder = "Enter Substat 2 value">
+        </div>
+    </div>
+    <div class = "form-group-custom row">
+        <div class = "col-sm-4">
+            <select class = "select-custom select-custom2 select-substat-add" name = "substat3_type" id = "substat3-type">
+                <option value = "null">SUBSTAT 3</option>
+                <% if (possible_stats) {
+                    var dropdown = '';
+                    possible_stats.forEach(function(item){
+                        dropdown += '<option value = "' 
+                        + item.stat_name 
+                        + '">' 
+                        + item.stat_name
+                        + '</option>'
+                    });
+                }
+                else{
+                    dropdown = '<option value = "">Invalid Option</option>'%>
+                <% } %>
+                <%- dropdown %>
+            </select>
+        </div>
+        <div class = "col-sm-8">
+            <input type = "number" step = "0.1" class = "input-custom input-substat-add" name = "substat3_value" id = "substat3-value" placeholder= "Enter Substat 3 value">
+        </div>
+    </div>
+    <div class = "form-group-custom row">
+        <div class = "col-sm-4">
+            <select class = "select-custom select-custom2 select-substat-add" name = "substat4_type" id = "substat4-type">
+                <option value = "null">SUBSTAT 4</option>
+                <% if (possible_stats) {
+                    var dropdown = '';
+                    possible_stats.forEach(function(item){
+                        dropdown += '<option value = "'
+                        + item.stat_name
+                        + '">' 
+                        + item.stat_name
+                        + '</option>'
+                    });
+                }
+                else{
+                    dropdown = '<option value = "">Invalid Option</option>'%>
+                <% } %>
+                <%- dropdown %>
+            </select>
+        </div>
+        <div class = "col-sm-8">
+            <input type = "number" step = "0.1" class = "input-custom input-substat-add" name = "substat4_value" id = "substat4-value" placeholder= "Enter Substat 4 value">
+        </div>
+    </div>
+    <button type = "submit" class = "btn btn-custom btn-block" id = "submit-button">Submit</button>
+</form>

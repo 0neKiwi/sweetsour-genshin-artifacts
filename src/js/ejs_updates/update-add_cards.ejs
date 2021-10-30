@@ -1,0 +1,56 @@
+<% if (user_artifacts) {
+    var cards = '';
+    user_artifacts.forEach(function(item){
+        if (item.set_name){
+            cards += '<div class = "card-custom">'
+            + '<span class = "set_value">' 
+            + item.set_id 
+            + '</span><span class = "set_name">'
+            + item.set_name
+            + '</span>'
+            + '<h1 class = "h1-custom">'
+            + '<img src = "'
+            + item.set_imagesource
+            + '" alt = "'
+            + item.set_name
+            + '" width = "50vw">'
+            + '<span class = "piece_name">'
+            + item.set_piece
+            + '</span></h1><hr class = "hr-custom">'
+            + '<div class = "card-body-custom">'
+            + '<h2 class = "h2-custom">'
+            + item.mainstat_type
+            + ': '
+            + item.mainstat_value
+            + '</h5>'
+            + '<hr class = "hr-custom"><p class = "p-custom"><span class = "substat_type">'
+            + item.substat1_type
+            + '</span>: <span class = "substat_value">'
+            + item.substat1_value 
+            + '</span><br><span class = "substat_type">'
+            + item.substat2_type
+            + '</span>: <span class = "substat_value">'
+            + item.substat2_value
+            + '</span><br><span class = "substat_type">'
+            + item.substat3_type
+            + '</span>: <span class = "substat_value">'
+            + item.substat3_value 
+            + '</span><br><span class = "substat_type">'
+            + item.substat4_type
+            + '</span>: <span class = "substat_value">'
+            + item.substat4_value
+            + '</span></p>'
+            + '</div>'
+            + '<input id="'
+            + item.artifact_id
+            + '" type="checkbox" value = "' 
+            + item.artifact_id 
+            + '">'
+            + '<label for="'
+            + item.artifact_id
+            + '" class="checkbox-custom">Add</label>'
+            + '</div>';
+        }
+    });
+} %>
+<%- cards %>
