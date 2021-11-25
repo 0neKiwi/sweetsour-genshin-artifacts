@@ -1,8 +1,9 @@
 # sweetsour-genshin-artifacts
 
-VERSION 1.0.0:
+VERSION 1.1.0:
 Capabilities: 
-* Check artifact lines (ATK, CRIT RATE, CRIT DAMAGE)
+* Choose artifact lines
+* Check artifact lines
 * Add artifacts
 
 To use:
