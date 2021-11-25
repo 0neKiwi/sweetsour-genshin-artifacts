@@ -134,40 +134,5 @@ app.get('/error', function(req, res) {
 	});
 });
 
-/*
-//home page add color
-app.post('/home/pick_color', function(req, res) {
-	var color_hex = req.body.color_hex;
-	var color_name = req.body.color_name;
-	var color_message = req.body.color_message;
-	var insert_statement = "INSERT INTO favorite_colors(hex_value, name, color_msg) VALUES('" + color_hex+ "', '" + color_name + "', '" + color_message + "');"// Write a SQL statement to insert a color into the favorite_colors table
-	var color_select = "SELECT hex_value FROM favorite_colors;"// Write a SQL statement to retrieve all of the colors in the favorite_colors table
-
-	db.task('get-everything', task => {
-        return task.batch([
-            task.any(insert_statement),
-            task.any(color_select)
-        ]);
-    })
-    .then(info => {
-    	res.render('pages/home',{
-				my_title: "Home Page",
-				data: info[1],// Return the color choices
-				color: color_hex,// Return the hex value of the color added to the table
-				color_msg: color_message// Return the color message of the color added to the table
-			})
-    })
-    .catch(err => {
-            console.log('error', err);
-            res.render('pages/home', {
-                my_title: 'Home Page',
-                data: '',
-                color: '',
-                color_msg: ''
-            })
-    });
-});*/
-
-
 app.listen(3030);
-console.log('3030 is the magic port');
+console.log('Loaded on 3030');

@@ -117,36 +117,3 @@ VALUES
 ('Viridescent Venerer', 'Circlet', 
 'CRIT RATE %', 'CRIT DAMAGE %', 'ATK', 'HP', 'ELEMENTAL MASTERY',
 31.1, 14.8, 37, 299, 63);
-
-/*
-DROP TABLE IF EXISTS user_artifacts CASCADE;
-CREATE TABLE IF NOT EXISTS user_artifacts (
-  set_name VARCHAR(50) NOT NULL,
-  set_piece VARCHAR(10) NOT NULL,
-  ATK% FLOAT NOT NULL,
-  ATK FLOAT NOT NULL,
-  HP% FLOAT NOT NULL,
-  HP FLOAT NOT NULL,
-  DEF% FLOAT NOT NULL,
-  DEF FLOAT NOT NULL,
-  CRITRATE% FLOAT NOT NULL,
-  CRITDMG% FLOAT NOT NULL,
-  ENERGYRECHARGE% FLOAT NOT NULL,
-  ELEMENTALMASTERY FLOAT NOT NULL,
-  ANEMODAMAGE% FLOAT NOT NULL,
-  PYRODAMAGE% FLOAT NOT NULL,
-  CRYODAMAGE% FLOAT NOT NULL,
-  HYDRODAMAGE% FLOAT NOT NULL,
-  ELECTRODAMAGE% FLOAT NOT NULL,
-  GEODAMAGE% FLOAT NOT NULL,
-  PHYSICALDAMAGE% FLOAT NOT NULL,
-  HEALINGBONUS% FLOAT NOT NULL,
-  mainstat_type VARCHAR(20) NOT NULL,
-  artifact_id SERIAL PRIMARY KEY
-);
-*/
-
-/*CREATE VIEW selected_artifacts AS 
-  SELECT * FROM user_artifacts INNER JOIN artifact_sets ON user_artifacts.set_name = artifact_sets.set_name WHERE artifact_id = ANY(ARRAY[" + selected_artifacts + "]);
-SELECT * FROM selected_artifacts WHERE 'ATK%' IN (substat1_type, substat2_type, substat)
-*/
