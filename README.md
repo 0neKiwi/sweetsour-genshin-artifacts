@@ -1,6 +1,6 @@
 # sweetsour-genshin-artifacts
 
-VERSION 1.1.0:
+VERSION 1.1.1:
 Capabilities: 
 * Choose artifact lines
 * Check artifact lines
