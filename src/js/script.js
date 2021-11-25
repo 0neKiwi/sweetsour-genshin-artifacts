@@ -1,22 +1,24 @@
-var possibleSubstats = ["ATK %", "ATK", "HP %", "HP", "DEF %", "DEF", "CRIT RATE %", "CRIT DAMAGE %", "ENERGY RECHARGE %", "ELEMENTAL MASTERY"];
 var substatsAdded = ["null"];
-var substatsDesired = ["ATK %", "CRIT RATE %", "CRIT DAMAGE %"];
-var substatAverages = [5.0, 3.3, 6.6];
+var substatsDesired = []; //["ATK %", "CRIT RATE %", "CRIT DAMAGE %"];
+var substatAverages = []; //[5.0, 3.3, 6.6];
 var selected_artifacts = [];
 var artifactLines = [];
-//form 1
+//VARIABLES: FORM 1
 var searchSet = document.getElementById("select-set");
 var cards = document.getElementsByClassName("card-custom");
-var checked = document.querySelectorAll('input[type=checkbox]:checked');
-var checkboxes = document.querySelectorAll('input[type=checkbox]');
-//form 2
+var checked = $('.check-custom:checkbox:checked');
+var checkboxes = $('.check-custom:checkbox');
+//VARIABLES: FORM 2
 var selectSet = document.getElementById("select-set-add");
 var selectSetPiece = document.getElementById("select-piece-add");
 var selectMainstat = document.getElementById("select-mainstat-add");
 var selectSubstat = document.getElementsByClassName("select-substat-add");
 var inputSubstat = document.getElementsByClassName("input-substat-add");
+//VARIABLES: FORM 3
+var checked2 = $('.check-custom2:checkbox:checked');
+var checkboxes2 = $('.check-custom2:checkbox');
 
-//Artifact Set Filter for Form 1
+//FORM 1
 searchSet.onclick = function(){
     if (this.value != "SELECT"){
         for (card of cards){
@@ -35,18 +37,10 @@ searchSet.onclick = function(){
     }
 };
 
-//FUNCTION
-//Output Logs:
-// # of Artifacts Checked
-// # of Desired Lines Per Artifact
+//FORM 2
+//FUNCTION: log # of lines
 function logLines(){
     var linesStats = "";
-    var desiredSubstats = "Desired Substats: ";
-    for (var desiredIndex = 0; desiredIndex < substatsDesired.length-1; desiredIndex++){
-        desiredSubstats += substatsDesired[desiredIndex] + ', ';
-    }
-    desiredSubstats += substatsDesired[substatsDesired.length-1] 
-    document.getElementById("desired-substats").innerText = desiredSubstats;
     artifactLines = [];
     selected_artifacts.forEach(item =>{
         var desiredRolls = 0;
@@ -77,73 +71,70 @@ function logLines(){
     }
     document.getElementById("stats").innerHTML = linesStats;
 }
-
+//FUNCTION: log # of artifacts
 function logValues(){
-    checked = document.querySelectorAll('input[type=checkbox]:checked');
+    checked = $('.check-custom:checkbox:checked');
     selected_artifacts = [];
     for (var i = 0; i < checked.length; i++){
         selected_artifacts.push(cards[checked[i].value-1]);
     }
-    document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
-    logLines();
+    if (selected_artifacts.length != 0){
+        document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
+        logLines();
+    }
+    else{
+        document.getElementById("num-artis-selected").innerText = "No artifacts added yet.";
+        document.getElementById("stats").innerText = "";
+    }
 }
-
-for (var i = 0; i < checkboxes.length; i++){
-    checkboxes[i].onclick = logValues;
-}
-
-//Uncheck/Check Boxes
+//FUNCTION: uncheck boxes
 function uncheckAll(){
     for (var i = 0; i < checkboxes.length; i++){
         checkboxes[i].checked = false;
     }
     selected_artifacts = [];
-    checked = document.querySelectorAll('input[type=checkbox]:checked');
+    checked = $('.check-custom:checkbox:checked');
     document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
-    logLines();
+    logValues();
 }
-
+//FUNCTION: check boxes
 function checkAll(){
     selected_artifacts = [];
     for (var i = 0; i < checkboxes.length; i++){
         checkboxes[i].checked = true;
         selected_artifacts.push(cards[checkboxes[i].value-1]);
     }
-    checked = document.querySelectorAll('input[type=checkbox]:checked');
+    checked = $('.check-custom:checkbox:checked');
     document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
-    logLines();
+    logValues();
 }
-
-document.getElementById("uncheckAll").onclick = uncheckAll;
-document.getElementById("checkAll").onclick = checkAll;
-
-//Form 2
-//disable button
-document.getElementById("submit-button").disabled = true;
-//mainstat
+//FUNCTION: show main stat
 function showMainstat(){
     selectMainstat.style.display = "inherit";
 }
+//FUNCTION: hide main stat
 function hideMainstat(){
     selectMainstat.style.display = "none";
 }
-//substat
+//FUNCTION: show substats
 function showSubstats(){
     for (var i = 0; i < selectSubstat.length; i++){
         selectSubstat[i].style.display = "inherit";
         inputSubstat[i].style.display = "inherit";
     }
 }
+//FUNCTION: hide substats
 function hideSubstats(){
     for (var i = 0; i < selectSubstat.length; i++){
         selectSubstat[i].style.display = "none";
         inputSubstat[i].style.display = "none";
     }
 }
-//clear
+//FUNCTION: clear main stat
 function clearMainstat(){
     selectMainstat.value = "null";
 }
+//FUNCTION: clear substats
 function clearSubstats(){
     for (var i = 0; i < selectSubstat.length; i++){
         selectSubstat[i].value = "null";
@@ -151,7 +142,24 @@ function clearSubstats(){
     }
     substatsAdded = ["null"];
 }
-//Try enable button
+//FUNCTION: set substat options
+function setSubstatOptions(){
+    for (var i = 0; i < selectSubstat.length; i++){
+        for (var ii = 0; ii < selectSubstat[i].getElementsByTagName("option").length; ii++){
+            if(selectMainstat.value != selectSubstat[i].getElementsByTagName("option")[ii].value){
+                selectSubstat[i].getElementsByTagName("option")[ii].disabled = false;
+                if ((substatsAdded.includes(selectSubstat[i].getElementsByTagName("option")[ii].value)) 
+                && (selectSubstat[i].value != selectSubstat[i].getElementsByTagName("option")[ii].value)){
+                    selectSubstat[i].getElementsByTagName("option")[ii].disabled = true;
+                }
+            }
+            else{
+                selectSubstat[i].getElementsByTagName("option")[ii].disabled = true;
+            }
+        }
+    }
+}
+//FUNCTION: try to enable button
 function tryButton(){
     if ((selectSet.value != "null") && (selectMainstat.value != "null") && (!substatsAdded.includes("null"))){
         document.getElementById("submit-button").disabled = false;
@@ -165,13 +173,18 @@ function tryButton(){
         document.getElementById("submit-button").disabled = true;
     }
 }
-
+//FORM 2 SET
+for (var i = 0; i < checkboxes.length; i++){
+    checkboxes[i].onclick = logValues;
+}
+document.getElementById("uncheckAll").onclick = uncheckAll;
+document.getElementById("checkAll").onclick = checkAll;
+document.getElementById("submit-button").disabled = true;
 selectSet.onclick = tryButton;
 for (var i = 0; i < inputSubstat.length; i++){
     inputSubstat[i].onclick = tryButton;
     inputSubstat[i].onchange = tryButton;
 }
-
 selectSetPiece.onclick = function(){
     clearMainstat();
     clearSubstats();
@@ -239,7 +252,6 @@ selectSetPiece.onclick = function(){
     }
     tryButton();
 }
-
 selectMainstat.onclick = function(){
     clearSubstats();
     setSubstatOptions();
@@ -251,25 +263,6 @@ selectMainstat.onclick = function(){
     }
     tryButton();
 }
-
-function setSubstatOptions(){
-    for (var i = 0; i < selectSubstat.length; i++){
-        for (var ii = 0; ii < selectSubstat[i].getElementsByTagName("option").length; ii++){
-            if((possibleSubstats.includes(selectSubstat[i].getElementsByTagName("option")[ii].value)) 
-            && (selectMainstat.value != selectSubstat[i].getElementsByTagName("option")[ii].value)){
-                selectSubstat[i].getElementsByTagName("option")[ii].disabled = false;
-                if ((substatsAdded.includes(selectSubstat[i].getElementsByTagName("option")[ii].value)) 
-                && (selectSubstat[i].value != selectSubstat[i].getElementsByTagName("option")[ii].value)){
-                    selectSubstat[i].getElementsByTagName("option")[ii].disabled = true;
-                }
-            }
-            else{
-                selectSubstat[i].getElementsByTagName("option")[ii].disabled = true;
-            }
-        }
-    }
-}
-
 for (var i = 0; i < selectSubstat.length; i++){
     selectSubstat[i].onclick = function(){
         substatsAdded = [];
@@ -280,3 +273,37 @@ for (var i = 0; i < selectSubstat.length; i++){
         tryButton();
     }
 }
+
+//Form 3
+//FUNCTION: log desired substats
+function logDesiredSubstats(){
+    var desiredSubstats = "<b>Desired Substats: </b>";
+    for (var desiredIndex = 0; desiredIndex < checked2.length-1; desiredIndex++){
+        desiredSubstats += substatsDesired[desiredIndex] + ', ';
+    }
+    desiredSubstats += substatsDesired[substatsDesired.length-1];
+    if (substatsDesired[0]){
+        document.getElementById("desired-substats").innerHTML = desiredSubstats;
+    }
+    else{
+        document.getElementById("desired-substats").innerHTML = "<b>Desired Substats: None</b>";
+    }
+}
+//FUNCTION: add desired substats
+function addDesiredSubstats(){
+    substatsDesired = [];
+    substatAverages = [];
+    for (var desiredIndex = 0; desiredIndex < checked2.length; desiredIndex++){
+        substatsDesired.push(checked2[desiredIndex].parentElement.getElementsByClassName("checkbox-custom2")[0].innerText);
+        substatAverages.push(checked2[desiredIndex].value);
+    }
+}
+for (var i = 0; i < checkboxes2.length; i++){
+    checkboxes2[i].onclick = function(){
+        checked2 = $('.check-custom2:checkbox:checked');
+        addDesiredSubstats();
+        logDesiredSubstats();
+        logValues();
+    }
+}
+

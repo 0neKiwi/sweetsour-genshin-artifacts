@@ -1,0 +1,18 @@
+<% 
+var substatsList = '';
+if (possible_stats) {
+    possible_stats.forEach(function(item){
+        if (item.stat_substat_average != 0){
+            substatsList += '<div class = "substatsList"><input id = "stat'
+            + item.stat_id
+            + '" type = "checkbox" value = "'
+            + item.stat_substat_average
+            + '" class = "check-custom2"><label for = "stat'
+            + item.stat_id
+            + '" class = "checkbox-custom2">' 
+            + item.stat_name 
+            + '</label><br></div>';
+        }
+    })
+}%>
+<%- substatsList %>

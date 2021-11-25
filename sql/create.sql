@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS user_artifacts (
 /*DROP TABLE IF EXISTS artifact_storage CASCADE;
 CREATE TABLE IF NOT EXISTS artifact_storage (
   artifacts INT[]
-);*/
+);
+*/
 
 /*Insertions*/
 

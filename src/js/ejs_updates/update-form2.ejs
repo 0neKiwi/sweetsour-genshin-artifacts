@@ -65,11 +65,13 @@
                 <% if (possible_stats) {
                     var dropdown = '';
                     possible_stats.forEach(function(item){
-                        dropdown += '<option value = "'
-                        + item.stat_name
-                        + '">' 
-                        + item.stat_name
-                        + '</option>'
+                        if (item.stat_substat_average != 0){
+                            dropdown += '<option value = "'
+                            + item.stat_name
+                            + '">' 
+                            + item.stat_name
+                            + '</option>';
+                        }
                     });
                 }
                 else{
@@ -89,11 +91,13 @@
                 <% if (possible_stats) {
                     var dropdown = '';
                     possible_stats.forEach(function(item){
-                        dropdown += '<option value = "'
-                        + item.stat_name
-                        + '">' 
-                        + item.stat_name
-                        + '</option>'
+                        if (item.stat_substat_average != 0){
+                            dropdown += '<option value = "'
+                            + item.stat_name
+                            + '">' 
+                            + item.stat_name
+                            + '</option>';
+                        }
                     });
                 }
                 else{
@@ -113,11 +117,13 @@
                 <% if (possible_stats) {
                     var dropdown = '';
                     possible_stats.forEach(function(item){
-                        dropdown += '<option value = "' 
-                        + item.stat_name 
-                        + '">' 
-                        + item.stat_name
-                        + '</option>'
+                        if (item.stat_substat_average != 0){
+                            dropdown += '<option value = "' 
+                            + item.stat_name 
+                            + '">' 
+                            + item.stat_name
+                            + '</option>';
+                        }
                     });
                 }
                 else{
@@ -137,11 +143,13 @@
                 <% if (possible_stats) {
                     var dropdown = '';
                     possible_stats.forEach(function(item){
-                        dropdown += '<option value = "'
-                        + item.stat_name
-                        + '">' 
-                        + item.stat_name
-                        + '</option>'
+                        if (item.stat_substat_average != 0){
+                            dropdown += '<option value = "'
+                            + item.stat_name
+                            + '">' 
+                            + item.stat_name
+                            + '</option>';
+                        }
                     });
                 }
                 else{

@@ -51,7 +51,7 @@ hr{
     height: 300px;
     margin: 1.5%;
     padding: 10px;
-    background-color: rgb(100, 150, 150);
+    background-color: rgb(100,150,150);
     color: white;
     border: 1px solid white;
     border-radius: 10px;
@@ -114,12 +114,13 @@ input[type=checkbox]{
     display: none;
 }
 .checkbox-custom{
+    cursor: pointer;
     user-select: none;
     width: 30%;
     padding: 1% 0;
     line-height: 30px;
     background-color: white;
-    color:rgb(100, 150, 150);
+    color: rgb(100,150,150);
     border-radius: 5px;
     text-align: center;
 }
@@ -128,7 +129,25 @@ input:checked + .checkbox-custom{
     color: white;
 }
 input:checked + .checkbox-custom:after{
-    content: "ed \2713"
+    content: "ed \2713";
+}
+.checkbox-custom2{
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    padding: 1% 1%;
+    line-height: 30px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    text-align: center;
+}
+input:checked + .checkbox-custom2{
+    background-color: rgb(125,100,125);
+    color: white;
+}
+input:checked + .checkbox-custom2:after{
+    content: " \2713";
 }
 button:disabled, button:disabled:hover {
     background-color: black;
