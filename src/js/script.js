@@ -41,6 +41,7 @@ searchSet.onclick = function(){
 //FUNCTION: log # of lines
 function logLines(){
     var linesStats = "";
+    var overallStats = "";
     artifactLines = [];
     selected_artifacts.forEach(item =>{
         var desiredRolls = 0;
@@ -55,11 +56,11 @@ function logLines(){
         }
         artifactLines.push(desiredRolls.toFixed(2));
     });
-    linesStats += '<b>Total Number of Lines: </b>'
+    overallStats += '<b>Total # of Lines: </b>'
     + (artifactLines.reduce((x,y) => parseFloat(x) + parseFloat(y), 0)).toFixed(2)
-    + '<br><b>Average Number of Lines: </b>'
+    + '<br><b>Average # of Lines: </b>'
     + (artifactLines.reduce((x,y) => parseFloat(x) + parseFloat(y), 0)/artifactLines.length).toFixed(2)
-    + '<br>';
+    + '<br><br><a href = "#num-artis-selected">See artifacts added below.</a>';
     for (var artiIndex = 0; artiIndex < artifactLines.length; artiIndex++){
         linesStats += '<u>'
         + checked[artiIndex].parentElement.getElementsByClassName("set_name")[0].innerText
@@ -70,14 +71,12 @@ function logLines(){
         + '<br>';
     }
     document.getElementById("stats").innerHTML = linesStats;
+    document.getElementById("avgstats").innerHTML = overallStats;
 }
 //FUNCTION: log # of artifacts
 function logValues(){
     checked = $('.check-custom:checkbox:checked');
-    selected_artifacts = [];
-    for (var i = 0; i < checked.length; i++){
-        selected_artifacts.push(cards[checked[i].value-1]);
-    }
+    selected_artifacts = Array.from(checked).map(_ => cards[_.value-1]);
     if (selected_artifacts.length != 0){
         document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
         logLines();
@@ -85,13 +84,12 @@ function logValues(){
     else{
         document.getElementById("num-artis-selected").innerText = "No artifacts added yet.";
         document.getElementById("stats").innerText = "";
+        document.getElementById("avgstats").innerText = "Find how many lines there are in your artifacts. ";
     }
 }
 //FUNCTION: uncheck boxes
 function uncheckAll(){
-    for (var i = 0; i < checkboxes.length; i++){
-        checkboxes[i].checked = false;
-    }
+    Array.from(checkboxes).map(_ => _.checked = false);
     selected_artifacts = [];
     checked = $('.check-custom:checkbox:checked');
     document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
@@ -99,11 +97,10 @@ function uncheckAll(){
 }
 //FUNCTION: check boxes
 function checkAll(){
-    selected_artifacts = [];
-    for (var i = 0; i < checkboxes.length; i++){
-        checkboxes[i].checked = true;
-        selected_artifacts.push(cards[checkboxes[i].value-1]);
-    }
+    selected_artifacts = Array.from(checkboxes).map(function(_){
+        _.checked = true;
+        return cards[_.value-1];
+    });
     checked = $('.check-custom:checkbox:checked');
     document.getElementById("num-artis-selected").innerText = "Artifacts Added: " + selected_artifacts.length;
     logValues();
@@ -142,22 +139,31 @@ function clearSubstats(){
     }
     substatsAdded = ["null"];
 }
+//FUNCTION: set mainstat options
+function setMainstatOptions(_, possible_stats){
+    if (possible_stats.includes(_.value)){
+        _.disabled = false;
+    }
+    else{
+        _.disabled = true;
+    }
+}
 //FUNCTION: set substat options
 function setSubstatOptions(){
-    for (var i = 0; i < selectSubstat.length; i++){
-        for (var ii = 0; ii < selectSubstat[i].getElementsByTagName("option").length; ii++){
-            if(selectMainstat.value != selectSubstat[i].getElementsByTagName("option")[ii].value){
-                selectSubstat[i].getElementsByTagName("option")[ii].disabled = false;
-                if ((substatsAdded.includes(selectSubstat[i].getElementsByTagName("option")[ii].value)) 
-                && (selectSubstat[i].value != selectSubstat[i].getElementsByTagName("option")[ii].value)){
-                    selectSubstat[i].getElementsByTagName("option")[ii].disabled = true;
+    Array.from(selectSubstat).map(function(select_substat){
+        Array.from(select_substat.getElementsByTagName("option")).map(function(option){
+            if(selectMainstat.value != option.value){
+                option.disabled = false;
+                if ((substatsAdded.includes(option.value)) 
+                && (select_substat.value != option.value)){
+                    option.disabled = true;
                 }
             }
             else{
-                selectSubstat[i].getElementsByTagName("option")[ii].disabled = true;
+                option.disabled = true;
             }
-        }
-    }
+        });
+    });
 }
 //FUNCTION: try to enable button
 function tryButton(){
@@ -174,17 +180,15 @@ function tryButton(){
     }
 }
 //FORM 2 SET
-for (var i = 0; i < checkboxes.length; i++){
-    checkboxes[i].onclick = logValues;
-}
+Array.from(checkboxes).map(_ => _.onclick = logValues);
 document.getElementById("uncheckAll").onclick = uncheckAll;
 document.getElementById("checkAll").onclick = checkAll;
 document.getElementById("submit-button").disabled = true;
 selectSet.onclick = tryButton;
-for (var i = 0; i < inputSubstat.length; i++){
-    inputSubstat[i].onclick = tryButton;
-    inputSubstat[i].onchange = tryButton;
-}
+Array.from(inputSubstat).map(function(_){
+    _.onclick = tryButton;
+    _.onchange = tryButton;
+});
 selectSetPiece.onclick = function(){
     clearMainstat();
     clearSubstats();
@@ -198,54 +202,29 @@ selectSetPiece.onclick = function(){
     }
     switch (selectSetPiece.value){
         case "Flower":
-            for (var i = 1; i < selectMainstat.getElementsByTagName("option").length; i++){
-                if (selectMainstat.getElementsByTagName("option")[i].value == "HP"){
-                    selectMainstat.getElementsByTagName("option")[i].disabled = false;
-                }
-                else{
-                    selectMainstat.getElementsByTagName("option")[i].disabled = true;
-                }
-            }
+            Array.from(selectMainstat.getElementsByTagName("option")).slice(1)
+            .map(_ => setMainstatOptions(_, 
+                ["HP"]));
             break;
         case "Feather":
-            for (var i = 1; i < selectMainstat.getElementsByTagName("option").length; i++){
-                if (selectMainstat.getElementsByTagName("option")[i].value == "ATK"){
-                    selectMainstat.getElementsByTagName("option")[i].disabled = false;
-                }
-                else{
-                    selectMainstat.getElementsByTagName("option")[i].disabled = true;
-                }
-            }
+            Array.from(selectMainstat.getElementsByTagName("option")).slice(1)
+            .map(_ => setMainstatOptions(_, 
+                ["ATK"]));
             break;
-        case "Sands":
-            for (var i = 1; i < selectMainstat.getElementsByTagName("option").length; i++){
-                if (["ATK %", "HP %", "DEF %", "ENERGY RECHARGE %", "ELEMENTAL MASTERY"].includes(selectMainstat.getElementsByTagName("option")[i].value)){
-                    selectMainstat.getElementsByTagName("option")[i].disabled = false;
-                }
-                else{
-                    selectMainstat.getElementsByTagName("option")[i].disabled = true;
-                }
-            }
+        case "Sands": 
+            Array.from(selectMainstat.getElementsByTagName("option")).slice(1)
+            .map(_ => setMainstatOptions(_, 
+                ["ATK %", "HP %", "DEF %", "ENERGY RECHARGE %", "ELEMENTAL MASTERY"]));
             break;
         case "Goblet":
-            for (var i = 1; i < selectMainstat.getElementsByTagName("option").length; i++){
-                if (["ATK %", "HP %", "DEF %", "ELEMENTAL MASTERY", "ANEMO DAMAGE %", "PYRO DAMAGE %", "CRYO DAMAGE %", "HYDRO DAMAGE %", "ELECTRO DAMAGE %", "GEO DAMAGE %", "PHYSICAL DAMAGE %"].includes(selectMainstat.getElementsByTagName("option")[i].value)){
-                    selectMainstat.getElementsByTagName("option")[i].disabled = false;
-                }
-                else{
-                    selectMainstat.getElementsByTagName("option")[i].disabled = true;
-                }
-            }
+            Array.from(selectMainstat.getElementsByTagName("option")).slice(1)
+            .map(_ => setMainstatOptions(_, 
+                ["ATK %", "HP %", "DEF %", "ELEMENTAL MASTERY", "ANEMO DAMAGE %", "PYRO DAMAGE %", "CRYO DAMAGE %", "HYDRO DAMAGE %", "ELECTRO DAMAGE %", "GEO DAMAGE %", "PHYSICAL DAMAGE %"]));
             break;
         case "Circlet":
-            for (var i = 1; i < selectMainstat.getElementsByTagName("option").length; i++){
-                if (["ATK %", "HP %", "DEF %", "CRIT RATE %", "CRIT DAMAGE %", "ELEMENTAL MASTERY", "HEALING BONUS %"].includes(selectMainstat.getElementsByTagName("option")[i].value)){
-                    selectMainstat.getElementsByTagName("option")[i].disabled = false;
-                }
-                else{
-                    selectMainstat.getElementsByTagName("option")[i].disabled = true;
-                }
-            }
+            Array.from(selectMainstat.getElementsByTagName("option")).slice(1)
+            .map(_ => setMainstatOptions(_, 
+                ["ATK %", "HP %", "DEF %", "CRIT RATE %", "CRIT DAMAGE %", "ELEMENTAL MASTERY", "HEALING BONUS %"]));
             break;
         default:
             break;
@@ -263,25 +242,19 @@ selectMainstat.onclick = function(){
     }
     tryButton();
 }
-for (var i = 0; i < selectSubstat.length; i++){
-    selectSubstat[i].onclick = function(){
-        substatsAdded = [];
-        for (var ii = 0; ii < selectSubstat.length; ii++){
-            substatsAdded.push(selectSubstat[ii].value);
-        }
+Array.from(selectSubstat).map(function(_){
+    _.onclick = function(){
+        substatsAdded = Array.from(selectSubstat).map(_ => _.value);
         setSubstatOptions();
         tryButton();
     }
-}
+});
 
 //Form 3
 //FUNCTION: log desired substats
 function logDesiredSubstats(){
     var desiredSubstats = "<b>Desired Substats: </b>";
-    for (var desiredIndex = 0; desiredIndex < checked2.length-1; desiredIndex++){
-        desiredSubstats += substatsDesired[desiredIndex] + ', ';
-    }
-    desiredSubstats += substatsDesired[substatsDesired.length-1];
+    desiredSubstats += Array.from(substatsDesired).join(', ');
     if (substatsDesired[0]){
         document.getElementById("desired-substats").innerHTML = desiredSubstats;
     }
@@ -291,19 +264,15 @@ function logDesiredSubstats(){
 }
 //FUNCTION: add desired substats
 function addDesiredSubstats(){
-    substatsDesired = [];
-    substatAverages = [];
-    for (var desiredIndex = 0; desiredIndex < checked2.length; desiredIndex++){
-        substatsDesired.push(checked2[desiredIndex].parentElement.getElementsByClassName("checkbox-custom2")[0].innerText);
-        substatAverages.push(checked2[desiredIndex].value);
-    }
+    substatsDesired = Array.from(checked2).map(_ => _.parentElement.getElementsByClassName("checkbox-custom2")[0].innerText);
+    substatAverages = Array.from(checked2).map(_ => _.value);
 }
-for (var i = 0; i < checkboxes2.length; i++){
-    checkboxes2[i].onclick = function(){
+Array.from(checkboxes2).map(function(_){
+    _.onclick = function(){
         checked2 = $('.check-custom2:checkbox:checked');
         addDesiredSubstats();
         logDesiredSubstats();
         logValues();
     }
-}
+});
 

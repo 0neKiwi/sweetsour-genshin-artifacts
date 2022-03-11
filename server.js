@@ -76,7 +76,7 @@ app.get('/home', function(req, res){
 });
 
 //ADD ARTIFACT
-app.post('/home/add_artifact', function(req, res) {
+app.post('/home', function(req, res) {
 	var select_set_add = req.body.select_set_add;
 	var select_piece_add = req.body.select_piece_add;
 	var mainstat_add = req.body.mainstat_add;
@@ -96,7 +96,6 @@ app.post('/home/add_artifact', function(req, res) {
 	+ "(" + "(SELECT set_name FROM artifact_sets WHERE set_id = " + select_set_add + ")" + ", '" + select_piece_add + "', '"
 	+ mainstat_add + "', '" + substat1_type + "', '" + substat2_type + "', '" + substat3_type + "', '" + substat4_type + "', "
 	+ "(SELECT stat_mainstat_value FROM stats_list WHERE stat_name = '" + mainstat_add + "'), " + substat1_value + ", " + substat2_value + ", " + substat3_value + ", " + substat4_value + ");"	
-	console.log(insert_statement);
 	var query1 = "SELECT * FROM artifact_sets;";
 	var query2 = "SELECT * FROM set_pieces;";
 	var query3 = "SELECT * FROM stats_list;";

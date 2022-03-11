@@ -61,7 +61,7 @@ VALUES
 ('Retracing Bolide', '../assets/retracing_bolide.png'),
 ('Blizzard Strayer', '../assets/blizzard_strayer.png'),
 ('Heart of Depth', '../assets/heart_of_depth.png'),
-('Tenacity of the Millelith', '../assets/tenancity_of_the_millelith.png'),
+('Tenacity of the Millelith', '../assets/tenacity_of_the_millelith.png'),
 ('Pale Flame', '../assets/pale_flame.png'),
 ('Emblem of Severed Fate', '../assets/emblem_of_severed_fate.png'),
 ('Shimenawa''s Reminiscence', '../assets/shimenawas_reminiscence.png');
